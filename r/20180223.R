@@ -52,19 +52,38 @@ area2code <- function(area){
 getwd()
 setwd('c:/easy_r')
 
-road <- read.csv('서울 광로대로 면적합계.csv', header = T)
-road <- as.data.frame(road)
-class(road$S)
-road$S <- as.character(road$S)
-road$S
-road$S <- as.numeric(road$S)
-road$S <- as.integer(road$S)
-#road$N <- as.factor(road$N)
-#road$code <- as.factor(road$code)
-road$codecode <- as.integer(road$code)
-#class(green$S)
+
+library(readxl)
+air <- read_excel('air3.xls', col_names=TRUE)
+class(air)
+air <- as.data.frame(air)
+air$E
+class(air$E)
+air$E<-air$E * 1000
+class(air$E)
+#as.integer(air$E)
+#class(air$E)
+
+air$E <- as.integer(air$E)
+
+
+
+#levels(air$S) <- as.integer(air$S)
+#air$S
+
+#air$S <- ifelse(air$S %in% air$codecode, air$S, NA)
+
+
+air$E
+#air$S <- as.numeric(air$S)
+air$E <- as.integer(air$E)
+#air$N <- as.factor(air$N)
+#air$code <- as.factor(air$code)
+air$codecode <- as.integer(air$code)
+class(air$E)
+class(air$code)
 #class(green$N)
-#class(green$code)
+class(air$codecode)
 #green
 
 
@@ -77,8 +96,10 @@ korpopmap5$codecode <- as.integer(korpopmap5$code1)
 
 #green변수에 데이터넣어야함
 
-korpopmap5$남자_명 <- ifelse(korpopmap5$codecode %in% road$codecode, road$S, NA)
+korpopmap5$남자_명 <- ifelse(korpopmap5$codecode %in% air$codecode, air$E, NA)
 table(is.na(korpopmap5$남자_명))
+korpopmap5$남자_명
+
 
 Seoul2=submap(korpopmap5,"서울")
-qtm(Seoul2,"남자_명")+tm_layout(fontfamily="AppleGothic")
+qtm(Seoul2,"남자_명")
